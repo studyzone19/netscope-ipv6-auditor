@@ -169,7 +169,7 @@ export function WebsiteScanForm({ onAuditStarted, className = '' }) {
               <Globe className="absolute left-3.5 top-3.5 w-4 h-4 text-cyan-400" />
               <input
                 type="text"
-                placeholder="https://example.com (e.g. https://wikipedia.org)"
+                placeholder="https://example.com"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
                 disabled={loading}
@@ -200,9 +200,9 @@ export function WebsiteScanForm({ onAuditStarted, className = '' }) {
           <div className="flex flex-wrap items-center gap-2 text-xs font-mono text-slate-400 pt-1">
             <span className="text-[11px] text-slate-500">Quick Test Targets:</span>
             {[
-              { label: '🌐 Wikipedia (Dual-Stack)', url: 'https://www.wikipedia.org' },
-              { label: '⚠️ Typo Demo (gogle.com)', url: 'https://gogle.com' },
               { label: '🔍 Google (Dual-Stack)', url: 'https://google.com' },
+              { label: '🌐 Wikipedia', url: 'https://www.wikipedia.org' },
+              { label: '☁️ Cloudflare', url: 'https://cloudflare.com' },
               { label: '🧪 Controlled Lab', url: 'http://127.0.0.1:5005' },
             ].map((chip) => (
               <button
