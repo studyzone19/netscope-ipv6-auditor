@@ -178,7 +178,7 @@ export function NewAudit() {
               <Globe className="absolute left-4 w-5 h-5 text-slate-400" />
               <input
                 type="text"
-                placeholder="https://example.com or https://prayag-hospital.vercel.app/"
+                placeholder="https://example.com (e.g. https://wikipedia.org)"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
                 disabled={isAuditing}
@@ -191,8 +191,8 @@ export function NewAudit() {
           <div className="flex flex-wrap items-center gap-2 pt-1">
             <span className="text-xs text-slate-500 font-mono">Quick Targets:</span>
             {[
-              { label: '🏥 Prayag Hospital (Benchmark)', target: 'https://prayag-hospital.vercel.app/' },
-              { label: '⚠️ Typo Test (prayag-hospitl)', target: 'https://prayag-hospitl.vercel.app/' },
+              { label: '🌐 Wikipedia (Global)', target: 'https://www.wikipedia.org' },
+              { label: '⚠️ Typo Test (gogle.com)', target: 'https://gogle.com' },
               { label: 'Google (Dual-Stack)', target: 'https://www.google.com' },
               { label: 'GitHub (IPv4-Only Root)', target: 'https://github.com' },
               { label: 'Controlled Lab Target', target: 'http://127.0.0.1:5005' },

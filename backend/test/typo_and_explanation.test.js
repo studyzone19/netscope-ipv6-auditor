@@ -7,14 +7,14 @@ import {
 } from '../src/services/explanationEngine.js';
 
 describe('Smart URL Typo Detection & Error Fix Guide', () => {
-  it('detects missing letter in reference URL (prayag-hospitl.vercel.app -> prayag-hospital.vercel.app)', () => {
-    const input = 'https://prayag-hospitl.vercel.app/';
+  it('detects missing letter in reference URL (gogle.com -> google.com)', () => {
+    const input = 'https://gogle.com';
     const result = detectUrlTypo(input);
 
     expect(result.hasMistake).toBe(true);
     expect(result.errorCategory).toBe('HOSTNAME_TYPO');
-    expect(result.suggestedUrl).toBe('https://prayag-hospital.vercel.app/');
-    expect(result.referenceMatch).toBe('prayag-hospital.vercel.app');
+    expect(result.suggestedUrl).toContain('google.com');
+    expect(result.referenceMatch).toBe('google.com');
     expect(result.characterPosition).toBeGreaterThan(0);
     expect(result.explanationEn).toContain('closely matches the reference domain');
     expect(result.explanationHi).toContain('typing mistake');

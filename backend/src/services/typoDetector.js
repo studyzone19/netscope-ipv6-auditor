@@ -2,9 +2,7 @@ import dns from 'dns/promises';
 import net from 'net';
 
 // Built-in reference dictionary of common domains and benchmark targets
-// Includes the user's specific benchmark example: prayag-hospital.vercel.app
 const KNOWN_REFERENCES = [
-  'prayag-hospital.vercel.app',
   'google.com',
   'youtube.com',
   'facebook.com',
