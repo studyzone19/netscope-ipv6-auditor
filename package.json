@@ -1,0 +1,29 @@
+{
+  "name": "netscope-ipv6-auditor",
+  "version": "1.0.0",
+  "description": "Beyond DNS. Measure Every Dependency. Prove IPv6 Readiness. (PS-027 inspired by IETF webres6)",
+  "main": "backend/src/server.js",
+  "type": "module",
+  "scripts": {
+    "install:all": "npm install --prefix backend && npm install --prefix frontend",
+    "build:frontend": "npm run build --prefix frontend",
+    "build": "npm run build:frontend",
+    "start": "node backend/src/server.js",
+    "server": "npm start --prefix backend",
+    "client": "npm run dev --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "test:backend": "npm test --prefix backend",
+    "test:frontend": "npm test --prefix frontend -- --run",
+    "test": "npm run test:backend && npm run test:frontend"
+  },
+  "keywords": [
+    "ipv6",
+    "dual-stack",
+    "ietf-webres6",
+    "network-measurement",
+    "dependency-auditor",
+    "playwright"
+  ],
+  "author": "NetScope Team",
+  "license": "MIT"
+}

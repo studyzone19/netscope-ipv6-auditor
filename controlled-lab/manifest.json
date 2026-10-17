@@ -1,0 +1,104 @@
+{
+  "labVersion": "1.0.0",
+  "name": "NetScope IPv6 Auditor Controlled Laboratory",
+  "description": "Reproducible benchmark suite for validating network measurement classification and edge cases against known ground truth.",
+  "baseUrl": "http://127.0.0.1:5005",
+  "testCases": [
+    {
+      "id": "TC-01",
+      "name": "Dual-Stack Fully Compliant Endpoint",
+      "path": "/api/dual-stack-pass",
+      "resourceType": "fetch",
+      "expectedIpv4Outcome": "Passed",
+      "expectedIpv6Outcome": "Passed",
+      "expectedOverall": "Passed",
+      "expectedIpv6SpecificFailure": false,
+      "ruleTested": "Full dual-stack parity: A and AAAA records present, TCP and TLS handshakes succeed, HTTP 200 returned.",
+      "rationale": "Serves as positive control for healthy dual-stack services."
+    },
+    {
+      "id": "TC-02",
+      "name": "HTTP 404 Not Found (Transport Control)",
+      "path": "/api/http-404-error",
+      "resourceType": "fetch",
+      "expectedIpv4Outcome": "Passed",
+      "expectedIpv6Outcome": "Passed",
+      "expectedOverall": "Passed",
+      "expectedIpv6SpecificFailure": false,
+      "ruleTested": "Section 6 Rule: 'HTTP 404 is not proof of transport failure.'",
+      "rationale": "Application-layer 404 indicates TCP/TLS and routing succeeded; network path is healthy."
+    },
+    {
+      "id": "TC-03",
+      "name": "HTTP 500 Internal Server Error",
+      "path": "/api/http-500-error",
+      "resourceType": "fetch",
+      "expectedIpv4Outcome": "HTTP error",
+      "expectedIpv6Outcome": "HTTP error",
+      "expectedOverall": "HTTP error",
+      "expectedIpv6SpecificFailure": false,
+      "ruleTested": "Classification: Distinguish application 5xx from lower-level TCP/TLS transport drops.",
+      "rationale": "Both stacks establish TCP, but application layer fails."
+    },
+    {
+      "id": "TC-04",
+      "name": "CORS Header Restriction (Browser-Only vs Network)",
+      "path": "/api/cors-restricted",
+      "resourceType": "fetch",
+      "expectedIpv4Outcome": "Passed",
+      "expectedIpv6Outcome": "Passed",
+      "expectedOverall": "Passed",
+      "expectedIpv6SpecificFailure": false,
+      "ruleTested": "Section 6 Rule: 'CORS is not proof of IPv6 failure.'",
+      "rationale": "CORS is a browser security policy enforced on origins, not an IP network transport failure."
+    },
+    {
+      "id": "TC-05",
+      "name": "Simulated IPv4-Only Sub-resource (Missing AAAA)",
+      "path": "/api/ipv4-only-sim",
+      "resourceType": "fetch",
+      "expectedIpv4Outcome": "Passed",
+      "expectedIpv6Outcome": "DNS failure",
+      "expectedOverall": "DNS failure",
+      "expectedIpv6SpecificFailure": true,
+      "ruleTested": "Section 6 Rule: 'A missing AAAA record blocks IPv6 resolution.'",
+      "rationale": "Client cannot resolve IPv6 address when authoritative DNS only has A records."
+    },
+    {
+      "id": "TC-06",
+      "name": "Simulated IPv6 TCP Connection Reset / Black Hole",
+      "path": "/api/broken-ipv6-tcp",
+      "resourceType": "fetch",
+      "expectedIpv4Outcome": "Passed",
+      "expectedIpv6Outcome": "TCP failure",
+      "expectedOverall": "TCP failure",
+      "expectedIpv6SpecificFailure": true,
+      "ruleTested": "Section 6 Rule: 'An AAAA record alone does not prove IPv6 readiness.'",
+      "rationale": "DNS resolves, but ingress firewall drops or rejects IPv6 TCP SYN packets."
+    },
+    {
+      "id": "TC-07",
+      "name": "Controlled Static Stylesheet Asset",
+      "path": "/style.css",
+      "resourceType": "stylesheet",
+      "expectedIpv4Outcome": "Passed",
+      "expectedIpv6Outcome": "Passed",
+      "expectedOverall": "Passed",
+      "expectedIpv6SpecificFailure": false,
+      "ruleTested": "Dual-stack static asset delivery verification.",
+      "rationale": "Confirms CSS assets resolve and serve cleanly."
+    },
+    {
+      "id": "TC-08",
+      "name": "Controlled JavaScript Application Module",
+      "path": "/app.js",
+      "resourceType": "script",
+      "expectedIpv4Outcome": "Passed",
+      "expectedIpv6Outcome": "Passed",
+      "expectedOverall": "Passed",
+      "expectedIpv6SpecificFailure": false,
+      "ruleTested": "Dual-stack script delivery verification.",
+      "rationale": "Confirms JavaScript assets resolve and serve cleanly."
+    }
+  ]
+}
