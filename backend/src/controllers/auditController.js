@@ -67,10 +67,14 @@ export async function createAudit(req, res) {
 
     // Find the newly initialized audit
     let audit = null;
-    for (let i = 0; i < 10; i++) {
-      audit = await Audit.findOne({ url: validation.parsedUrl.toString() }).sort({ createdAt: -1 });
-      if (audit) break;
-      await new Promise((r) => setTimeout(r, 200));
+    try {
+      for (let i = 0; i < 10; i++) {
+        audit = await Audit.findOne({ url: validation.parsedUrl.toString() }).sort({ createdAt: -1 });
+        if (audit) break;
+        await new Promise((r) => setTimeout(r, 200));
+      }
+    } catch (queryErr) {
+      console.warn('[AuditController] Non-fatal audit lookup warning:', queryErr.message);
     }
 
     return res.status(201).json({

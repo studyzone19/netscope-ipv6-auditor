@@ -9,7 +9,8 @@ router.get('/health', async (req, res) => {
     return res.json({
       status: 'healthy',
       service: 'NetScope IPv6 Auditor API',
-      version: '1.0.0',
+      version: '1.1.0-resilient',
+      commit: 'latest-main',
       uptime: process.uptime(),
       timestamp: new Date().toISOString(),
       worker: {
