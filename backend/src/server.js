@@ -17,6 +17,9 @@ import { startLabServer } from '../../controlled-lab/server.js';
 
 dotenv.config();
 
+// Disable Mongoose command buffering so queries fail fast or route to resilient memory store
+mongoose.set('bufferCommands', false);
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 

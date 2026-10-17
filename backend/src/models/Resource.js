@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { createResilientModel } from './memoryFallback.js';
 
 const ResourceSchema = new mongoose.Schema(
   {
@@ -83,4 +84,4 @@ const ResourceSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export const Resource = mongoose.model('Resource', ResourceSchema);
+export const Resource = createResilientModel('Resource', ResourceSchema);

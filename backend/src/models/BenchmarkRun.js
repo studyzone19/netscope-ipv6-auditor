@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { createResilientModel } from './memoryFallback.js';
 
 const BenchmarkSiteSchema = new mongoose.Schema(
   {
@@ -56,4 +57,4 @@ const BenchmarkRunSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export const BenchmarkRun = mongoose.model('BenchmarkRun', BenchmarkRunSchema);
+export const BenchmarkRun = createResilientModel('BenchmarkRun', BenchmarkRunSchema);

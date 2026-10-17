@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { createResilientModel } from './memoryFallback.js';
 
 const MeasurementSchema = new mongoose.Schema(
   {
@@ -127,4 +128,4 @@ const MeasurementSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export const Measurement = mongoose.model('Measurement', MeasurementSchema);
+export const Measurement = createResilientModel('Measurement', MeasurementSchema);
