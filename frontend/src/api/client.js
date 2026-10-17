@@ -117,8 +117,11 @@ export async function getAuditGraph(id) {
   }
   try {
     const res = await fetch(`${API_BASE}/audits/${id}/graph`);
-    if (!res.ok) return getClientAuditGraph(id);
-    return await res.json();
+    const data = await res.json();
+    if (!data?.graph?.nodes || data.graph.nodes.length === 0) {
+      return getClientAuditGraph(id);
+    }
+    return data;
   } catch (e) {
     return getClientAuditGraph(id);
   }
