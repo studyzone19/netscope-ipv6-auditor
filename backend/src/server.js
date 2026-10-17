@@ -76,10 +76,14 @@ let labServerInstance = null;
 
 export async function startServer() {
   try {
-    await mongoose.connect(MONGODB_URI, {
-      serverSelectionTimeoutMS: 5000,
-    });
-    console.log(`[MongoDB] Connected successfully to ${MONGODB_URI}`);
+    try {
+      await mongoose.connect(MONGODB_URI, {
+        serverSelectionTimeoutMS: 5000,
+      });
+      console.log(`[MongoDB] Connected successfully to ${MONGODB_URI}`);
+    } catch (dbErr) {
+      console.warn(`[MongoDB Warning] Could not connect to database (${dbErr.message}). Server running with fallback mock responses.`);
+    }
 
     // Start embedded Controlled Lab server
     try {
@@ -96,7 +100,6 @@ export async function startServer() {
     return { app, server: serverInstance };
   } catch (err) {
     console.error('[Startup Error]:', err.message);
-    process.exit(1);
   }
 }
 
